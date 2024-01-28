@@ -45,22 +45,17 @@ public class FlightManager implements FlightService {
 
     @Override
     public List<Flight> searchFlights(int departureAirportId, int arrivalAirportId, LocalDate departureDate, LocalDate returnDate) {
-//        List<Flight> flights = flightRespository.findByDepartureAirportIdAndArrivalAirportId(departureAirportId, arrivalAirportId);
-//        System.out.println(departureDate.getClass());
-//        return flightRespository.findByDepartureDateBetween(departureDate.atStartOfDay(), LocalDateTime.of(departureDate.getYear(), departureDate.getMonth(), departureDate.getDayOfMonth() + 1, 23, 59));
-//
-
         List<Flight> flights = new ArrayList<>();
-        flights.addAll(flightRespository.findByDepartureAirportIdAndArrivalAirportIdAndDepartureDateBetween(departureAirportId, arrivalAirportId, departureDate.atStartOfDay(),atEndOfDay(departureDate.atStartOfDay())));
+        flights.addAll(flightRespository
+                .findByDepartureAirportIdAndArrivalAirportIdAndDepartureDateBetween(departureAirportId, arrivalAirportId, departureDate.atStartOfDay(), atEndOfDay(departureDate.atStartOfDay())));
 
         if (returnDate == null) {
             return flights;
         } else {
-            flights.addAll(flightRespository.findByDepartureAirportIdAndArrivalAirportIdAndDepartureDateBetween(arrivalAirportId, departureAirportId,returnDate.atStartOfDay(),atEndOfDay(returnDate.atStartOfDay())));
+            flights.addAll(flightRespository.findByDepartureAirportIdAndArrivalAirportIdAndDepartureDateBetween(arrivalAirportId, departureAirportId, returnDate.atStartOfDay(), atEndOfDay(returnDate.atStartOfDay())));
             return flights;
         }
     }
-
     @Override
     public void add(CreateFlightRequest createFlightRequest) {
         Flight flight = modelMapperService.forRequests().map(createFlightRequest, Flight.class);
@@ -78,8 +73,8 @@ public class FlightManager implements FlightService {
         flightRespository.deleteById(id);
     }
 
-    LocalDateTime atEndOfDay(LocalDateTime localDateTime){
-        LocalDateTime date = LocalDateTime.of(localDateTime.getYear(),localDateTime.getMonth(),localDateTime.getDayOfMonth(),23,59);
+    LocalDateTime atEndOfDay(LocalDateTime localDateTime) {
+        LocalDateTime date = LocalDateTime.of(localDateTime.getYear(), localDateTime.getMonth(), localDateTime.getDayOfMonth(), 23, 59);
         return date;
     }
 }

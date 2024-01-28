@@ -31,5 +31,4 @@ public class Airport {
     @OneToMany(mappedBy = "arrivalAirport")
     @JsonBackReference
     private List<Flight> arrivalFlights;
-
 }

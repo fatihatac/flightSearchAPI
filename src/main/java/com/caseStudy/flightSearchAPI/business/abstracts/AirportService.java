@@ -12,7 +12,6 @@ import java.util.List;
 public interface AirportService {
     List<GetAllAirportsResponse> getAll();
     GetByIdAirportResponse getById(int id);
-    List<Flight> searchFlights(int departureAirportId, int arrivalAirportId, LocalDateTime departureDateTime, LocalDateTime returnDateTime);
     void add(CreateAirportRequest createAirportRequest);
     void update(UpdateAirportRequest updateAirportRequest);
     void delete(int id);

@@ -45,11 +45,6 @@ public class AirportManager implements AirportService {
     }
 
     @Override
-    public List<Flight> searchFlights(int departureAirportId, int arrivalAirportId, LocalDateTime departureDateTime, LocalDateTime returnDateTime) {
-        return null;
-    }
-
-    @Override
     public void add(CreateAirportRequest createAirportRequest) {
         Airport airport = modelMapperService.forRequests().map(createAirportRequest,Airport.class);
         airportRepository.save(airport);
